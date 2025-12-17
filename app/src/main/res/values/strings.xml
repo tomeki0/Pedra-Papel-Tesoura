@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pedra-Papel-Tesoura</string>
+    <string name="txt_field_explain">Escolha sua jogada, clicando no botao correspondente</string>
+    <string name="txt_field_result">Resultado:</string>
+    <string name="btn_txt_PEDRA">Pedra</string>
+    <string name="btn_txt_TESOURA">Tesoura</string>
+    <string name="btn_txt_PAPEL">Papel</string>
+</resources>
