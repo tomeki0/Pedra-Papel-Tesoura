@@ -3,6 +3,7 @@ package com.guilima.pedra_papel_tesoura;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtResultado;
     TextView txtJogada;
-    Button btnPedra;
-    Button btnPapel;
-    Button btnTesoura;
+    ImageView btnPedra;
+    ImageView btnPapel;
+    ImageView btnTesoura;
+    ImageView imgResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         txtResultado = findViewById(R.id.txtResultado);
         txtJogada = findViewById(R.id.txtJogada);
-        btnPedra = findViewById(R.id.btnPedra);
-        btnPapel = findViewById(R.id.btnPapel);
-        btnTesoura = findViewById(R.id.btnTesoura);
-
+        btnPedra = findViewById(R.id.imgPedra);
+        btnPapel = findViewById(R.id.imgPapel);
+        btnTesoura = findViewById(R.id.imgTesoura);
+        imgResult = findViewById(R.id.imgResult);
     }
 
     public void cliqueBtnPedra(View view) {
@@ -45,13 +47,19 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtResultado.setText("Pedra com Pedra = Empate");
+            txtResultado.setText("Pedra com Pedra = EMPATE");
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.pedra_pedra));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
-            txtResultado.setText("Papel engole Pedra = Você perdeu");
+            txtResultado.setText("Papel engole Pedra = Você PERDEU");
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.papel_pedra));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtResultado.setText("Pedra quebra Tesoura = Você ganhou");
+            txtResultado.setText("Pedra quebra Tesoura = Você GANHOU");
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.pedra_tesoura));
+            imgResult.setVisibility(View.VISIBLE);
         }
     }
     public void cliqueBtnPapel(View view) {
