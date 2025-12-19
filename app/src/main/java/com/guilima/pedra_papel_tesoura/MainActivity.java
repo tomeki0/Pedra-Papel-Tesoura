@@ -2,7 +2,9 @@ package com.guilima.pedra_papel_tesoura;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnPapel;
     ImageView btnTesoura;
     ImageView imgResult;
+    //RotateAnimation girar = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +49,26 @@ public class MainActivity extends AppCompatActivity {
         txtJogada.setText("Você escolheu Pedra");
         String resultado = fazerJogada();
 
+        /* girar.setDuration(1500);
+        girar.setInterpolator(new LinearInterpolator()); */
+
+
+
+
         if (resultado.equals("Pedra")) {
             txtResultado.setText("Pedra com Pedra = EMPATE");
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.pedra_pedra));
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_pedra);
             imgResult.setVisibility(View.VISIBLE);
+            //imgResult.startAnimation(girar);
 
         } else if (resultado.equals("Papel")) {
             txtResultado.setText("Papel engole Pedra = Você PERDEU");
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.papel_pedra));
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
             txtResultado.setText("Pedra quebra Tesoura = Você GANHOU");
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.pedra_tesoura));
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
             imgResult.setVisibility(View.VISIBLE);
         }
     }
