@@ -52,12 +52,9 @@ public class MainActivity extends AppCompatActivity {
         /* girar.setDuration(1500);
         girar.setInterpolator(new LinearInterpolator()); */
 
-
-
-
         if (resultado.equals("Pedra")) {
             txtResultado.setText("Pedra com Pedra = EMPATE");
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_pedra);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_pedra));
             imgResult.setVisibility(View.VISIBLE);
             //imgResult.startAnimation(girar);
 
@@ -79,15 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultado.equals("Pedra")) {
             txtResultado.setText("Papel engole Pedra = Você ganhou");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
             txtResultado.setText("Papel com Papel = Empate");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_papel));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
             txtResultado.setText("Tesoura corta Papel = Você perdeu");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
+            imgResult.setVisibility(View.VISIBLE);
         }
     }
     public void cliqueBtnTesoura(View view) {
@@ -97,15 +97,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultado.equals("Pedra")) {
             txtResultado.setText("Pedra quebra Tesoura = Você perdeu");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
             txtResultado.setText("Tesoura corta Papel = Você ganhou");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
+            imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
             txtResultado.setText("Tesoura com Tesoura = Empate");
-            imgResult.setVisibility(View.INVISIBLE);
+            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_tesoura));
+            imgResult.setVisibility(View.VISIBLE);
         }
 
     }
