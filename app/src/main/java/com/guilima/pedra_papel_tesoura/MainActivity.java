@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Papel ENGOLE Pedra");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
+            imprimeVitoria(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Tesoura CORTA Papel");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeVitoria(txtResultado);
+            imprimeDerrota(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
             imgResult.setVisibility(View.VISIBLE);
