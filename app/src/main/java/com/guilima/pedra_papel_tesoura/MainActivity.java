@@ -1,10 +1,8 @@
 package com.guilima.pedra_papel_tesoura;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +17,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtResultado;
+    TextView txtCombinacao;
     TextView txtJogada;
     ImageView btnPedra;
     ImageView btnPapel;
@@ -37,13 +36,36 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         txtResultado = findViewById(R.id.txtResultado);
+        txtCombinacao = findViewById(R.id.txtCombinacao);
         txtJogada = findViewById(R.id.txtJogada);
         btnPedra = findViewById(R.id.imgPedra);
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
         imgResult = findViewById(R.id.imgResult);
     }
+
+    void imprimeVitoria(TextView view) {
+
+        view.setText("VITÓRIA");
+        view.setTextColor(Color.parseColor(getString(R.string.green_victory)));
+
+    }
+
+    void imprimeDerrota(TextView view) {
+
+        view.setText("DERROTA");
+        view.setTextColor(Color.parseColor(getString(R.string.red_defeat)));
+
+    }
+    void imprimeEmpate(TextView view) {
+
+        view.setText("EMPATE");
+        view.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+
+
 
     public void cliqueBtnPedra(View view) {
         txtJogada.setText("Você escolheu Pedra");
@@ -53,18 +75,31 @@ public class MainActivity extends AppCompatActivity {
         girar.setInterpolator(new LinearInterpolator()); */
 
         if (resultado.equals("Pedra")) {
-            txtResultado.setText("Pedra com Pedra = EMPATE");
+
+            txtCombinacao.setText("Pedra com Pedra = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeEmpate(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_pedra));
             imgResult.setVisibility(View.VISIBLE);
             //imgResult.startAnimation(girar);
 
         } else if (resultado.equals("Papel")) {
-            txtResultado.setText("Papel engole Pedra = Você PERDEU");
+            txtCombinacao.setText("Papel engole Pedra = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeVitoria(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtResultado.setText("Pedra quebra Tesoura = Você GANHOU");
+            txtCombinacao.setText("Pedra quebra Tesoura = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeDerrota(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
             imgResult.setVisibility(View.VISIBLE);
         }
@@ -75,17 +110,29 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtResultado.setText("Papel engole Pedra = Você ganhou");
+            txtCombinacao.setText("Papel engole Pedra = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeVitoria(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
-            txtResultado.setText("Papel com Papel = Empate");
+            txtCombinacao.setText("Papel com Papel = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeEmpate(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_papel));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtResultado.setText("Tesoura corta Papel = Você perdeu");
+            txtCombinacao.setText("Tesoura corta Papel = ");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeDerrota(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
             imgResult.setVisibility(View.VISIBLE);
         }
@@ -96,23 +143,27 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtResultado.setText("Pedra quebra Tesoura = Você perdeu");
+            txtCombinacao.setText("Pedra quebra Tesoura = Você perdeu");
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
-            txtResultado.setText("Tesoura corta Papel = Você ganhou");
+            txtCombinacao.setText("Tesoura corta Papel = Você ganhou");
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtResultado.setText("Tesoura com Tesoura = Empate");
+            txtCombinacao.setText("Tesoura com Tesoura ");
+            txtCombinacao.setTextColor(Color.parseColor("#FFFFFF"));
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_tesoura));
             imgResult.setVisibility(View.VISIBLE);
         }
 
     }
     public String fazerJogada() {
+
+        imgResult.setVisibility(View.INVISIBLE);
+
         Random random = new Random();
         int numero = random.nextInt(3);
         String resultadoSorteio = "";
