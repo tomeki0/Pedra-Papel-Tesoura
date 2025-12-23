@@ -4,5 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <string name="green_victory">#4CAF50</string>
     <string name="red_defeat">#AFF45448</string>
-    <string name="gray_draw">#C3837C7C</string>
+    <string name="gray_draw">#D9A933</string>
 </resources>
