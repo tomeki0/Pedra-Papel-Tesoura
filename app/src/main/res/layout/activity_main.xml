@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="-20dp"
+    tools:layout_editor_absoluteY="-1dp">
 
     <TextView
         android:id="@+id/txtJogada"
@@ -23,19 +25,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="172dp"
         android:text="@string/txt_field_result"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
 
     <TextView
         android:id="@+id/txtCombinacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
         android:layout_marginTop="24dp"
         android:text="@string/txt_field_combs"
+        android:textAlignment="center"
         android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
 
@@ -43,24 +47,23 @@
         android:id="@+id/imgPapel"
         android:layout_width="101dp"
         android:layout_height="74dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="188dp"
         android:onClick="cliqueBtnPapel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgTesoura"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/imgPedra"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultado"
-        app:layout_constraintVertical_bias="0.372"
-        app:srcCompat="@drawable/papel" />
+        app:srcCompat="@drawable/btn_papel" />
 
     <TextView
         android:id="@+id/txtPedra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="224dp"
         android:text="@string/btn_txt_PEDRA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,54 +71,54 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txtPapel"
+        android:id="@+id/txtTesoura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/btn_txt_PAPEL"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="240dp"
+        android:text="@string/btn_txt_TESOURA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPapel"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintTop_toBottomOf="@+id/imgTesoura"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imgPedra"
         android:layout_width="102dp"
         android:layout_height="74dp"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginBottom="256dp"
         android:onClick="cliqueBtnPedra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pedra" />
-
-    <TextView
-        android:id="@+id/txtTesoura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="272dp"
-        android:text="@string/btn_txt_TESOURA"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txtPapel"
-        app:layout_constraintTop_toBottomOf="@+id/imgTesoura"
-        app:layout_constraintVertical_bias="0.105" />
+        app:srcCompat="@drawable/btn_pedra" />
 
     <ImageView
         android:id="@+id/imgTesoura"
         android:layout_width="102dp"
         android:layout_height="74dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="256dp"
         android:onClick="cliqueBtnTesoura"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/tesoura" />
+        app:srcCompat="@drawable/btn_tesoura" />
+
+    <TextView
+        android:id="@+id/txtPapel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="-18dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/btn_txt_PAPEL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPapel"
+        app:layout_constraintVertical_bias="0.155" />
 
     <ImageView
         android:id="@+id/imgResult"

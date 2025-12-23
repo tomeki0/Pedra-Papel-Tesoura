@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     void imprimeEmpate(TextView view) {
 
         view.setText("EMPATE");
-        view.setTextColor(Color.parseColor("#FFFFFF"));
+        view.setTextColor(Color.parseColor(getString(R.string.gray_draw)));
     }
 
 
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultado.equals("Pedra")) {
 
-            txtCombinacao.setText("Pedra com Pedra = ");
+            txtCombinacao.setText("Pedra COM Pedra");
             txtCombinacao.setVisibility(View.VISIBLE);
 
             imprimeEmpate(txtResultado);
@@ -86,19 +86,19 @@ public class MainActivity extends AppCompatActivity {
             //imgResult.startAnimation(girar);
 
         } else if (resultado.equals("Papel")) {
-            txtCombinacao.setText("Papel engole Pedra = ");
+            txtCombinacao.setText("Papel ENGOLE Pedra");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeVitoria(txtResultado);
+            imprimeDerrota(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtCombinacao.setText("Pedra quebra Tesoura = ");
+            txtCombinacao.setText("Pedra QUEBRA Tesoura");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
+            imprimeVitoria(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
             imgResult.setVisibility(View.VISIBLE);
@@ -110,16 +110,16 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtCombinacao.setText("Papel engole Pedra = ");
+            txtCombinacao.setText("Papel ENGOLE Pedra");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeVitoria(txtResultado);
+            imprimeDerrota(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
-            txtCombinacao.setText("Papel com Papel = ");
+            txtCombinacao.setText("Papel COM Papel");
             txtCombinacao.setVisibility(View.VISIBLE);
 
             imprimeEmpate(txtResultado);
@@ -128,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtCombinacao.setText("Tesoura corta Papel = ");
+            txtCombinacao.setText("Tesoura CORTA Papel");
             txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
+            imprimeVitoria(txtResultado);
 
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
             imgResult.setVisibility(View.VISIBLE);
@@ -143,17 +143,29 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtCombinacao.setText("Pedra quebra Tesoura = Você perdeu");
+            txtCombinacao.setText("Pedra QUEBRA Tesoura");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeDerrota(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Papel")) {
-            txtCombinacao.setText("Tesoura corta Papel = Você ganhou");
+            txtCombinacao.setText("Tesoura CORTA Papel");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeVitoria(txtResultado);
+
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
             imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
-            txtCombinacao.setText("Tesoura com Tesoura ");
+            txtCombinacao.setText("Tesoura COM Tesoura");
+            txtCombinacao.setVisibility(View.VISIBLE);
+
+            imprimeEmpate(txtResultado);
+
             txtCombinacao.setTextColor(Color.parseColor("#FFFFFF"));
             imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_tesoura));
             imgResult.setVisibility(View.VISIBLE);
