@@ -3,8 +3,6 @@ package com.guilima.pedra_papel_tesoura;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
         imgResult = findViewById(R.id.imgResult);
-        videoJogada = findViewById(R.id.gif);
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
-        videoJogada.setVideoURI(uri);
+        videoJogada = findViewById(R.id.videoJogada);
 
     }
 
@@ -61,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         view.setTextColor(Color.parseColor(getString(R.string.green_victory)));
 
     }
-
     void imprimeDerrota(TextView view) {
 
         view.setText("DERROTA");
@@ -75,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void cliqueBtnPedra(View view) {
         txtJogada.setText("Você escolheu: \nPEDRA");
         String resultado = fazerJogada();
@@ -86,16 +80,25 @@ public class MainActivity extends AppCompatActivity {
         if (resultado.equals("Pedra")) {
 
             txtCombinacao.setText("Pedra COM Pedra");
-            txtCombinacao.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
+            videoJogada.setVideoURI(uri);
 
-            imprimeEmpate(txtResultado);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_pedra));
-            imgResult.setVisibility(View.VISIBLE);
-            //imgResult.startAnimation(girar);
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeEmpate(txtResultado);
+            });
 
         } else if (resultado.equals("Papel")) {
-            txtCombinacao.setText("Papel ENGOLE Pedra");
+
+            txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
+            videoJogada.setVideoURI(uri);
 
             txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
@@ -108,17 +111,23 @@ public class MainActivity extends AppCompatActivity {
                 imprimeDerrota(txtResultado);
             });
 
-            //imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
-            //imgResult.setVisibility(View.VISIBLE);
-
         } else if (resultado.equals("Tesoura")) {
+
             txtCombinacao.setText("Pedra QUEBRA Tesoura");
-            txtCombinacao.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
+            videoJogada.setVideoURI(uri);
 
-            imprimeVitoria(txtResultado);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
-            imgResult.setVisibility(View.VISIBLE);
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeVitoria(txtResultado);
+            });
+            
         }
     }
     public void cliqueBtnPapel(View view) {
@@ -127,31 +136,56 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
+
             txtCombinacao.setText("Papel ENGOLE Pedra");
-            txtCombinacao.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
+            videoJogada.setVideoURI(uri);
 
-            imprimeVitoria(txtResultado);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
-            imgResult.setVisibility(View.VISIBLE);
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeVitoria(txtResultado);
+            });
 
         } else if (resultado.equals("Papel")) {
+
             txtCombinacao.setText("Papel COM Papel");
-            txtCombinacao.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
+            videoJogada.setVideoURI(uri);
 
-            imprimeEmpate(txtResultado);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_papel));
-            imgResult.setVisibility(View.VISIBLE);
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeEmpate(txtResultado);
+            });
 
         } else if (resultado.equals("Tesoura")) {
-            txtCombinacao.setText("Tesoura CORTA Papel");
-            txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
+            txtCombinacao.setText("Papel é CORTADO por Tesoura");
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
+            videoJogada.setVideoURI(uri);
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
-            imgResult.setVisibility(View.VISIBLE);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
+
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeDerrota(txtResultado);
+            });
+
         }
     }
     public void cliqueBtnTesoura(View view) {
@@ -160,34 +194,56 @@ public class MainActivity extends AppCompatActivity {
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
-            txtCombinacao.setText("Pedra QUEBRA Tesoura");
-            txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
+            txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
+            videoJogada.setVideoURI(uri);
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_pedra_tesoura));
-            imgResult.setVisibility(View.VISIBLE);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
+
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeDerrota(txtResultado);
+            });
 
         } else if (resultado.equals("Papel")) {
+
             txtCombinacao.setText("Tesoura CORTA Papel");
-            txtCombinacao.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
+            videoJogada.setVideoURI(uri);
 
-            imprimeVitoria(txtResultado);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_corta_papel));
-            imgResult.setVisibility(View.VISIBLE);
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeVitoria(txtResultado);
+            });
 
         } else if (resultado.equals("Tesoura")) {
             txtCombinacao.setText("Tesoura COM Tesoura");
-            txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeEmpate(txtResultado);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
+            videoJogada.setVideoURI(uri);
 
-            txtCombinacao.setTextColor(Color.parseColor("#FFFFFF"));
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_tesoura_tesoura));
-            imgResult.setVisibility(View.VISIBLE);
+            txtResultado.setVisibility(View.INVISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
+
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeEmpate(txtResultado);
+            });
         }
-
     }
     public String fazerJogada() {
 
