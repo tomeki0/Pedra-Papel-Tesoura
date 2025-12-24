@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnPedra;
     ImageView btnPapel;
     ImageView btnTesoura;
-    ImageView imgResult;
     VideoView videoJogada;
+    FrameLayout videoContainer;
     //RotateAnimation girar = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
 
     @Override
@@ -39,15 +40,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
         txtResultado = findViewById(R.id.txtResultado);
         txtCombinacao = findViewById(R.id.txtCombinacao);
         txtJogada = findViewById(R.id.txtJogada);
         btnPedra = findViewById(R.id.imgPedra);
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
-        imgResult = findViewById(R.id.imgResult);
         videoJogada = findViewById(R.id.videoJogada);
+        videoContainer = findViewById(R.id.videoContainer);
 
         //deixando o texto de resultado invisivel, pois so vai aparecer depois de fazer a jogada
         txtResultado.setVisibility(View.INVISIBLE);
@@ -83,18 +83,20 @@ public class MainActivity extends AppCompatActivity {
         if (resultado.equals("Pedra")) {
 
             txtCombinacao.setText("Pedra COM Pedra");
+
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
                 txtResultado.setVisibility(View.VISIBLE);
                 txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeEmpate(txtResultado);
             });
+
+            imprimeEmpate(txtResultado);
 
         } else if (resultado.equals("Papel")) {
 
@@ -102,15 +104,17 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
                 txtResultado.setVisibility(View.VISIBLE);
                 txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeDerrota(txtResultado);
+
             });
+
+            imprimeDerrota(txtResultado);
 
         } else if (resultado.equals("Tesoura")) {
 
@@ -118,21 +122,23 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
                 txtResultado.setVisibility(View.VISIBLE);
                 txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeVitoria(txtResultado);
+
             });
+
+            imprimeVitoria(txtResultado);
             
         }
     }
     public void cliqueBtnPapel(View view) {
 
-        txtJogada.setText("Você escolheu Papel");
+        txtJogada.setText("Você escolheu: \nPapel");
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
@@ -141,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -173,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -187,16 +193,17 @@ public class MainActivity extends AppCompatActivity {
     }
     public void cliqueBtnTesoura(View view) {
 
-        txtJogada.setText("Você escolheu Tesoura");
+        txtJogada.setText("Você escolheu: \nTesoura");
         String resultado = fazerJogada();
 
         if (resultado.equals("Pedra")) {
 
             txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
+
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -209,10 +216,11 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultado.equals("Papel")) {
 
             txtCombinacao.setText("Tesoura CORTA Papel");
+
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -228,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoJogada.setVisibility(View.VISIBLE);
+            videoContainer.setVisibility(View.VISIBLE);
             videoJogada.start();
 
             videoJogada.setOnCompletionListener(mp -> {
@@ -241,9 +249,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public String fazerJogada() {
 
-        imgResult.setVisibility(View.INVISIBLE);
-        videoJogada.setVisibility(View.INVISIBLE);
         txtCombinacao.setVisibility(View.INVISIBLE);
+        txtResultado.setVisibility(View.INVISIBLE);
 
         Random random = new Random();
         int numero = random.nextInt(3);
