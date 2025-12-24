@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="@string/txt_field_result"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
@@ -134,7 +135,7 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <VideoView
-        android:id="@+id/gif"
+        android:id="@+id/videoJogada"
         android:layout_width="150dp"
         android:layout_height="110dp"
         android:layout_marginStart="130dp"
