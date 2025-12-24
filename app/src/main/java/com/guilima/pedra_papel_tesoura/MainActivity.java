@@ -3,6 +3,8 @@ package com.guilima.pedra_papel_tesoura;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void cliqueBtnPedra(View view) {
-        txtJogada.setText("Você escolheu Pedra");
+        txtJogada.setText("Você escolheu: \nPEDRA");
         String resultado = fazerJogada();
 
         /* girar.setDuration(1500);
@@ -94,12 +96,18 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (resultado.equals("Papel")) {
             txtCombinacao.setText("Papel ENGOLE Pedra");
-            txtCombinacao.setVisibility(View.VISIBLE);
 
-            imprimeDerrota(txtResultado);
-
+            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
+
+            videoJogada.setOnCompletionListener(mp -> {
+                videoJogada.pause();
+                txtResultado.setVisibility(View.VISIBLE);
+                txtCombinacao.setVisibility(View.VISIBLE);
+                imprimeDerrota(txtResultado);
+            });
+
             //imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
             //imgResult.setVisibility(View.VISIBLE);
 
@@ -185,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
         imgResult.setVisibility(View.INVISIBLE);
         videoJogada.setVisibility(View.INVISIBLE);
+        txtCombinacao.setVisibility(View.INVISIBLE);
 
         Random random = new Random();
         int numero = random.nextInt(3);
