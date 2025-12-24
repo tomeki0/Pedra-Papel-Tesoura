@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         imgResult = findViewById(R.id.imgResult);
         videoJogada = findViewById(R.id.videoJogada);
 
+        //deixando o texto de resultado invisivel, pois so vai aparecer depois de fazer a jogada
+        txtResultado.setVisibility(View.INVISIBLE);
+
     }
 
     void imprimeVitoria(TextView view) {
@@ -83,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -100,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -117,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -158,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -175,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -199,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -216,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
@@ -233,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
             videoJogada.setVideoURI(uri);
 
-            txtResultado.setVisibility(View.INVISIBLE);
             videoJogada.setVisibility(View.VISIBLE);
             videoJogada.start();
 
