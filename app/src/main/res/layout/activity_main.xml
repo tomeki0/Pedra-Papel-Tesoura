@@ -13,12 +13,11 @@
         android:id="@+id/txtJogada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="136dp"
         android:text="@string/txt_field_explain"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,20 +25,21 @@
         android:id="@+id/txtResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="@string/txt_field_result"
+        android:layout_marginBottom="70dp"
         android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtCombinacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="@string/txt_field_combs"
         android:textAlignment="center"
+        android:textSize="16sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -120,30 +120,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/btn_tesoura" />
 
-    <ImageView
-        android:id="@+id/imgResult"
-        android:layout_width="150dp"
-        android:layout_height="110dp"
+    <FrameLayout
+        android:id="@+id/videoContainer"
+        android:layout_width="190dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/video_arredondado"
+        android:clipToOutline="true"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCombinacao">
 
-    <VideoView
-        android:id="@+id/videoJogada"
-        android:layout_width="150dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="95dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imgPapel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultado" />
+        <VideoView
+            android:id="@+id/videoJogada"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="visible" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
