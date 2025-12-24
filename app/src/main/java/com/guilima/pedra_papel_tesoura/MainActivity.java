@@ -71,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
         view.setText("EMPATE");
         view.setTextColor(Color.parseColor(getString(R.string.gray_draw)));
     }
+    void playVideo(VideoView video) {
+
+        videoContainer.setVisibility(View.VISIBLE);
+        videoJogada.start();
+    }
 
 
     public void cliqueBtnPedra(View view) {
@@ -87,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -104,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -122,8 +125,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -133,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
             imprimeVitoria(txtResultado);
-            
         }
     }
     public void cliqueBtnPapel(View view) {
@@ -147,8 +148,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -163,8 +163,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -179,8 +178,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -203,8 +201,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -220,8 +217,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
@@ -236,8 +232,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
             videoJogada.setVideoURI(uri);
 
-            videoContainer.setVisibility(View.VISIBLE);
-            videoJogada.start();
+            playVideo(videoJogada);
 
             videoJogada.setOnCompletionListener(mp -> {
                 videoJogada.pause();
