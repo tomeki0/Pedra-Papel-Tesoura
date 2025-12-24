@@ -1,10 +1,12 @@
 package com.guilima.pedra_papel_tesoura;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnPapel;
     ImageView btnTesoura;
     ImageView imgResult;
+    VideoView videoJogada;
     //RotateAnimation girar = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
 
     @Override
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
         imgResult = findViewById(R.id.imgResult);
+        videoJogada = findViewById(R.id.gif);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
+        videoJogada.setVideoURI(uri);
+
     }
 
     void imprimeVitoria(TextView view) {
@@ -91,8 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
             imprimeDerrota(txtResultado);
 
-            imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
-            imgResult.setVisibility(View.VISIBLE);
+            videoJogada.setVisibility(View.VISIBLE);
+            videoJogada.start();
+            //imgResult.setImageDrawable(getResources().getDrawable(R.drawable.img_papel_pedra));
+            //imgResult.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("Tesoura")) {
             txtCombinacao.setText("Pedra QUEBRA Tesoura");
@@ -175,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     public String fazerJogada() {
 
         imgResult.setVisibility(View.INVISIBLE);
+        videoJogada.setVisibility(View.INVISIBLE);
 
         Random random = new Random();
         int numero = random.nextInt(3);
