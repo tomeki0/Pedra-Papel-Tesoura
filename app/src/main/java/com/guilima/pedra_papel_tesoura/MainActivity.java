@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnPedra;
     ImageView btnPapel;
     ImageView btnTesoura;
-    VideoView videoJogada;
+    private VideoView videoJogada;
     FrameLayout videoContainer;
     //RotateAnimation girar = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
 
@@ -71,14 +71,19 @@ public class MainActivity extends AppCompatActivity {
         view.setText("EMPATE");
         view.setTextColor(Color.parseColor(getString(R.string.gray_draw)));
     }
-    void playVideo(VideoView video) {
+    void playVideo(VideoView videoJogada) {
 
+        this.videoJogada = videoJogada;
         videoContainer.setVisibility(View.VISIBLE);
         videoJogada.start();
     }
-
+    void exibirResultadoAposVideoParar(VideoView video, TextView txtResultado, TextView txtCombinacao) {
+            //
+    }
 
     public void cliqueBtnPedra(View view) {
+
+        //COLOCAR LOGICA DE SE O VIDEO ESTIVER TOCANDO OU SEJA, FOI INICIADO UMA JOGADA, SO PODE INICIAR OUTRA JOGADA DEPOIS DO VIDEO/JOGADA ATUAL PARAR
         txtJogada.setText("Você escolheu: \nPEDRA");
         String resultado = fazerJogada();
 
