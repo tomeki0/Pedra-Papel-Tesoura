@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pedra-Papel-Tesoura</string>
+    <string name="app_name">Pedra Papel Tesoura</string>
 
     <string name="txt_field_explain">Escolha sua jogada\nClicando no botão correspondente</string>
     <string name="txt_field_combs">Combinacao:</string>
