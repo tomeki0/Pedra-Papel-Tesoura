@@ -51,12 +51,11 @@
         android:id="@+id/txtPapel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/btn_txt_PAPEL"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPapel" />
 
@@ -89,14 +88,12 @@
         android:id="@+id/imgPapel"
         android:layout_width="110dp"
         android:layout_height="80dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="7dp"
         android:layout_marginBottom="180dp"
         android:onClick="cliqueBtnPapel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgTesoura"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintStart_toEndOf="@+id/imgPedra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/btn_papel" />
 
     <ImageView
@@ -146,36 +143,61 @@
         android:id="@+id/qtdeVitorias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/qtdeVitorias"
-        app:layout_constraintEnd_toStartOf="@+id/qtdeDerrotas"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="59dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/letraV"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/qtdeEmpates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="111dp"
-        android:text="@string/qtdeEmpates"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/qtdeDerrotas"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="59dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/letraE"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/qtdeDerrotas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="36dp"
-        android:text="@string/qtdeDerrotas"
-        app:layout_constraintEnd_toStartOf="@+id/qtdeEmpates"
-        app:layout_constraintStart_toEndOf="@+id/qtdeVitorias"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="59dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/letraD"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/letraD"
+        android:layout_width="25dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/letra_d" />
+
+    <ImageView
+        android:id="@+id/letraE"
+        android:layout_width="25dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/letra_e" />
+
+    <ImageView
+        android:id="@+id/letraV"
+        android:layout_width="25dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/letra_v" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
