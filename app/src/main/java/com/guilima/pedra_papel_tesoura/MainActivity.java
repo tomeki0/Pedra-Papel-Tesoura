@@ -27,12 +27,30 @@ public class MainActivity extends AppCompatActivity {
     private final int ID_DERROTA = 2;
 
 
+
+    //Variavel de empates
+    private int empates;
+
+    //Variavel de vitorias
+    private int vitorias;
+
+    //Variavel de derrotas
+    private int derrotas;
+
+
+
     private TextView txtResultado;
     private TextView txtCombinacao;
     private TextView txtJogada;
+
+    private TextView txtEmpates;
+    private TextView txtVitorias;
+    private TextView txtDerrotas;
+
     private ImageView btnPedra;
     private ImageView btnPapel;
     private ImageView btnTesoura;
+
     private VideoView videoJogada;
     private FrameLayout videoContainer;
     MediaPlayer mpAudio;
@@ -51,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         txtResultado = findViewById(R.id.txtResultado);
         txtCombinacao = findViewById(R.id.txtCombinacao);
         txtJogada = findViewById(R.id.txtJogada);
+
+        txtEmpates = findViewById(R.id.qtdeEmpates);
+        txtVitorias = findViewById(R.id.qtdeVitorias);
+        txtDerrotas = findViewById(R.id.qtdeDerrotas);
+
         btnPedra = findViewById(R.id.imgPedra);
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
@@ -59,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         //deixando o texto de resultado invisivel, pois so vai aparecer depois de fazer a jogada
         txtResultado.setVisibility(View.INVISIBLE);
+
+        //Start na qtde dos resultados
+        empates = 0;
+        vitorias = 0;
+        derrotas = 0;
 
     }
 
@@ -82,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         String txtEmpate = getResources().getString(R.string.txt_EMPATE);
         view.setText(txtEmpate);
         view.setTextColor(ContextCompat.getColor(this, R.color.yellow_draw));
+
     }
 
     //Funcao para dar play no video e e exibir o container com bordas arredondadas ao redor do video
@@ -110,17 +139,23 @@ public class MainActivity extends AppCompatActivity {
                 mpAudio = MediaPlayer.create(this, R.raw.audio_empate);
                 mpAudio.start();
 
+                txtEmpates.setText(getResources().getString(R.string.qtdeEmpates) + empates);
+
             } else if (ID_RESULTADO == ID_VITORIA) {
 
                 imprimeVitoria(txtResultado);
                 mpAudio = MediaPlayer.create(this, R.raw.audio_vitoria);
                 mpAudio.start();
 
+                txtVitorias.setText(getResources().getString(R.string.qtdeVitorias) + vitorias);
+
             } else if (ID_RESULTADO == ID_DERROTA) {
 
                 imprimeDerrota(txtResultado);
                 mpAudio = MediaPlayer.create(this, R.raw.audio_derrota);
                 mpAudio.start();
+
+                txtDerrotas.setText(getResources().getString(R.string.qtdeDerrotas) + derrotas);
 
             }
         });
@@ -139,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Pedra COM Pedra");
+            empates = empates + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_pedra);
@@ -153,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Pedra QUEBRA Tesoura");
+            vitorias = vitorias + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_tesoura);
@@ -167,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
+            derrotas = derrotas + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_papel);
@@ -188,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Papel COM Papel");
+            empates = empates + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_papel);
@@ -202,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Papel ENGOLE Pedra");
+            vitorias = vitorias + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_pedra);
@@ -216,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Papel é CORTADO por Tesoura");
+            derrotas = derrotas + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_tesoura);
@@ -236,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Tesoura COM Tesoura");
+            empates = empates + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_tesoura);
@@ -250,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Tesoura CORTA Papel");
+            vitorias = vitorias + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_papel);
@@ -264,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
+            derrotas = derrotas + 1;
 
             //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_pedra);

@@ -13,5 +13,10 @@
     <string name="txt_EMPATE">EMPATE</string>"
     <string name="txt_VITORIA">VITÓRIA</string>
     <string name="txt_DERROTA">DERROTA"</string>
+
+    <string name="qtdeEmpates">Empates: </string>
+    <string name="qtdeVitorias">Vitórias: </string>
+    <string name="qtdeDerrotas">Derrotas: </string>
+
 </resources>
 
