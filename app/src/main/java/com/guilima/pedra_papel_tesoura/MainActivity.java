@@ -1,5 +1,6 @@
 package com.guilima.pedra_papel_tesoura;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnTesoura;
     private VideoView videoJogada;
     private FrameLayout videoContainer;
+    MediaPlayer mpAudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,17 +103,28 @@ public class MainActivity extends AppCompatActivity {
             videoJogada.pause();
             txtResultado.setVisibility(View.VISIBLE);
             txtCombinacao.setVisibility(View.VISIBLE);
+
+            if (ID_RESULTADO == ID_EMPATE) {
+
+                imprimeEmpate(txtResultado);
+                mpAudio = MediaPlayer.create(this, R.raw.audio_empate);
+                mpAudio.start();
+
+            } else if (ID_RESULTADO == ID_VITORIA) {
+
+                imprimeVitoria(txtResultado);
+                mpAudio = MediaPlayer.create(this, R.raw.audio_vitoria);
+                mpAudio.start();
+
+            } else if (ID_RESULTADO == ID_DERROTA) {
+
+                imprimeDerrota(txtResultado);
+                mpAudio = MediaPlayer.create(this, R.raw.audio_derrota);
+                mpAudio.start();
+
+            }
         });
-
-        if (ID_RESULTADO == ID_VITORIA) {
-            imprimeVitoria(txtResultado);
-        } else if (ID_RESULTADO == ID_DERROTA) {
-            imprimeDerrota(txtResultado);
-        } else if (ID_RESULTADO == ID_EMPATE) {
-            imprimeEmpate(txtResultado);
-        }
     }
-
 
     //Funcoes para fazera jogada de acordo com o botao clicado
     public void cliqueBtnPedra(View view) {
