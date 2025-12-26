@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">Pedra-Papel-Tesoura</string>
+
     <string name="txt_field_explain">Escolha sua jogada\nClicando no botão correspondente</string>
+    <string name="txt_field_combs">Combinacao:</string>
+
+
     <string name="btn_txt_PEDRA">Pedra</string>
     <string name="btn_txt_TESOURA">Tesoura</string>
     <string name="btn_txt_PAPEL">Papel</string>
-    <string name="txt_field_combs">Combinacao:</string>
+
+
+    <string name="txt_EMPATE">EMPATE</string>"
+    <string name="txt_VITORIA">VITÓRIA</string>
+    <string name="txt_DERROTA">DERROTA"</string>
 </resources>
+
