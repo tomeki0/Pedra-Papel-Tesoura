@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         String txtEmpate = getResources().getString(R.string.txt_EMPATE);
         view.setText(txtEmpate);
-        view.setTextColor(Color.parseColor(getString(R.string.gray_draw)));
+        view.setTextColor(Color.parseColor(getString(R.string.yellow_draw)));
     }
 
     //Funcao para dar play no video e e exibir o container com bordas arredondadas ao redor do video
