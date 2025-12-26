@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name ="background_color">#091813</color>
 
-    <string name="green_victory">#4CAF50</string>
-    <string name="red_defeat">#AFF45448</string>
-    <string name="yellow_draw">#D9A933</string>
+    <color name="green_victory">#4CAF50</color>
+    <color name="red_defeat">#AFF45448</color>
+    <color name="yellow_draw">#D9A933</color>
 </resources>

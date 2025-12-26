@@ -11,6 +11,7 @@ import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -65,21 +66,21 @@ public class MainActivity extends AppCompatActivity {
 
         String txtVitoria = getResources().getString(R.string.txt_VITORIA);
         view.setText(txtVitoria);
-        view.setTextColor(Color.parseColor(getString(R.string.green_victory)));
+        view.setTextColor(ContextCompat.getColor(this, R.color.green_victory));
 
     }
     void imprimeDerrota(TextView view) {
 
         String txtDerrota = getResources().getString(R.string.txt_DERROTA);
         view.setText(txtDerrota);
-        view.setTextColor(Color.parseColor(getString(R.string.red_defeat)));
+        view.setTextColor(ContextCompat.getColor(this, R.color.red_defeat));
 
     }
     void imprimeEmpate(TextView view) {
 
         String txtEmpate = getResources().getString(R.string.txt_EMPATE);
         view.setText(txtEmpate);
-        view.setTextColor(Color.parseColor(getString(R.string.yellow_draw)));
+        view.setTextColor(ContextCompat.getColor(this, R.color.yellow_draw));
     }
 
     //Funcao para dar play no video e e exibir o container com bordas arredondadas ao redor do video
