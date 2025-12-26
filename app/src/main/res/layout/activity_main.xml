@@ -142,4 +142,40 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/qtdeVitorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/qtdeVitorias"
+        app:layout_constraintEnd_toStartOf="@+id/qtdeDerrotas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/qtdeEmpates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="111dp"
+        android:text="@string/qtdeEmpates"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qtdeDerrotas"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/qtdeDerrotas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="36dp"
+        android:text="@string/qtdeDerrotas"
+        app:layout_constraintEnd_toStartOf="@+id/qtdeEmpates"
+        app:layout_constraintStart_toEndOf="@+id/qtdeVitorias"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
