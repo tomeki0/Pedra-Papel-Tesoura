@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 mpAudio = MediaPlayer.create(this, R.raw.audio_empate);
                 mpAudio.start();
 
-                txtEmpates.setText(getResources().getString(R.string.qtdeEmpates) + empates);
+                txtEmpates.setText(String.valueOf(empates));
 
             } else if (ID_RESULTADO == ID_VITORIA) {
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 mpAudio = MediaPlayer.create(this, R.raw.audio_vitoria);
                 mpAudio.start();
 
-                txtVitorias.setText(getResources().getString(R.string.qtdeVitorias) + vitorias);
+                txtVitorias.setText(String.valueOf(vitorias));
 
             } else if (ID_RESULTADO == ID_DERROTA) {
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 mpAudio = MediaPlayer.create(this, R.raw.audio_derrota);
                 mpAudio.start();
 
-                txtDerrotas.setText(getResources().getString(R.string.qtdeDerrotas) + derrotas);
+                txtDerrotas.setText(String.valueOf(derrotas));
 
             }
         });
