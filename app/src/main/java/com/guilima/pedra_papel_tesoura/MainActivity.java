@@ -1,6 +1,5 @@
 package com.guilima.pedra_papel_tesoura;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Pedra COM Pedra");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_pedra);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Pedra QUEBRA Tesoura");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_tesoura);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_papel);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Papel COM Papel");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_papel);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -192,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Papel ENGOLE Pedra");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_pedra);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -206,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Papel é CORTADO por Tesoura");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_tesoura);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -226,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Tesoura COM Tesoura");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_tesoura);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -240,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Tesoura CORTA Papel");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_papel);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
@@ -254,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
 
             //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_pedra);
             videoJogada.setVideoURI(uri);
 
             //Exibir video e resultado
