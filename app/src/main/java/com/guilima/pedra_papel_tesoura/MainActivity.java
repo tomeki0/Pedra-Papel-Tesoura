@@ -19,15 +19,21 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView txtResultado;
-    TextView txtCombinacao;
-    TextView txtJogada;
-    ImageView btnPedra;
-    ImageView btnPapel;
-    ImageView btnTesoura;
+
+    //Serve para passar como parametro para a funcao de exibirResultado e assim saber qual o resultado da jogada
+    private final int ID_EMPATE = 0;
+    private final int ID_VITORIA = 1;
+    private final int ID_DERROTA = 2;
+
+
+    private TextView txtResultado;
+    private TextView txtCombinacao;
+    private TextView txtJogada;
+    private ImageView btnPedra;
+    private ImageView btnPapel;
+    private ImageView btnTesoura;
     private VideoView videoJogada;
-    FrameLayout videoContainer;
-    //RotateAnimation girar = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.6f, Animation.RELATIVE_TO_SELF, 0.6f);
+    private FrameLayout videoContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,92 +60,109 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Funcoes para modificar o txtResultado de acordo com o resultado da jogada
     void imprimeVitoria(TextView view) {
 
-        view.setText("VITÓRIA");
+        String txtVitoria = getResources().getString(R.string.txt_VITORIA);
+        view.setText(txtVitoria);
         view.setTextColor(Color.parseColor(getString(R.string.green_victory)));
 
     }
     void imprimeDerrota(TextView view) {
 
-        view.setText("DERROTA");
+        String txtDerrota = getResources().getString(R.string.txt_DERROTA);
+        view.setText(txtDerrota);
         view.setTextColor(Color.parseColor(getString(R.string.red_defeat)));
 
     }
     void imprimeEmpate(TextView view) {
 
-        view.setText("EMPATE");
+        String txtEmpate = getResources().getString(R.string.txt_EMPATE);
+        view.setText(txtEmpate);
         view.setTextColor(Color.parseColor(getString(R.string.gray_draw)));
     }
+
+    //Funcao para dar play no video e e exibir o container com bordas arredondadas ao redor do video
     void playVideo(VideoView videoJogada) {
 
         this.videoJogada = videoJogada;
         videoContainer.setVisibility(View.VISIBLE);
         videoJogada.start();
     }
-    void exibirResultadoAposVideoParar(VideoView video, TextView txtResultado, TextView txtCombinacao) {
-            //
+
+    //Funcao para exibir o resultado da jogada apos o video parar de tocar
+    void exibirResultadoAposVideoParar(VideoView videoJogada, TextView txtResultado, TextView txtCombinacao, int ID_RESULTADO) {
+
+        this.videoJogada = videoJogada;
+        this.txtResultado = txtResultado;
+        this.txtCombinacao = txtCombinacao;
+
+        videoJogada.setOnCompletionListener(mp -> {
+            videoJogada.pause();
+            txtResultado.setVisibility(View.VISIBLE);
+            txtCombinacao.setVisibility(View.VISIBLE);
+        });
+
+        if (ID_RESULTADO == ID_VITORIA) {
+            imprimeVitoria(txtResultado);
+        } else if (ID_RESULTADO == ID_DERROTA) {
+            imprimeDerrota(txtResultado);
+        } else if (ID_RESULTADO == ID_EMPATE) {
+            imprimeEmpate(txtResultado);
+        }
     }
 
+
+    //Funcoes para fazera jogada de acordo com o botao clicado
     public void cliqueBtnPedra(View view) {
 
         //COLOCAR LOGICA DE SE O VIDEO ESTIVER TOCANDO OU SEJA, FOI INICIADO UMA JOGADA, SO PODE INICIAR OUTRA JOGADA DEPOIS DO VIDEO/JOGADA ATUAL PARAR
+
         txtJogada.setText("Você escolheu: \nPEDRA");
         String resultado = fazerJogada();
 
-        /* girar.setDuration(1500);
-        girar.setInterpolator(new LinearInterpolator()); */
-
+        //EMPATE
         if (resultado.equals("Pedra")) {
 
+            //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Pedra COM Pedra");
 
+            //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_pedra);
             videoJogada.setVideoURI(uri);
 
+            //Exibir video e resultado
             playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-            });
-
-            imprimeEmpate(txtResultado);
-
-        } else if (resultado.equals("Papel")) {
-
-            txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
-            videoJogada.setVideoURI(uri);
-
-            playVideo(videoJogada);
-
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-
-            });
-
-            imprimeDerrota(txtResultado);
-
+        //VITORIA
         } else if (resultado.equals("Tesoura")) {
 
+            //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Pedra QUEBRA Tesoura");
+
+            //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_tesoura);
             videoJogada.setVideoURI(uri);
 
+            //Exibir video e resultado
             playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
 
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
+        //DERROTA
+        } else if (resultado.equals("Papel")) {
 
-            });
+            //Definindo texto de combinacao da jogada
+            txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
 
-            imprimeVitoria(txtResultado);
+            //Definindo caminho do video de jogada a ser exibido
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pedra_papel);
+            videoJogada.setVideoURI(uri);
+
+            //Exibir video e resultado
+            playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+
         }
     }
     public void cliqueBtnPapel(View view) {
@@ -147,51 +170,47 @@ public class MainActivity extends AppCompatActivity {
         txtJogada.setText("Você escolheu: \nPapel");
         String resultado = fazerJogada();
 
-        if (resultado.equals("Pedra")) {
+        //EMPATE
+        if (resultado.equals("Papel")) {
 
-            txtCombinacao.setText("Papel ENGOLE Pedra");
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
-            videoJogada.setVideoURI(uri);
-
-            playVideo(videoJogada);
-
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeVitoria(txtResultado);
-            });
-
-        } else if (resultado.equals("Papel")) {
-
+            //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Papel COM Papel");
+
+            //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_papel);
             videoJogada.setVideoURI(uri);
 
+            //Exibir video e resultado
             playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeEmpate(txtResultado);
-            });
+        //VITORIA
+        } else if (resultado.equals("Pedra")) {
 
+            //Definindo texto de combinacao da jogada
+            txtCombinacao.setText("Papel ENGOLE Pedra");
+
+            //Definindo caminho do video de jogada a ser exibido
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_pedra);
+            videoJogada.setVideoURI(uri);
+
+            //Exibir video e resultado
+            playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
+
+        //DERROTA
         } else if (resultado.equals("Tesoura")) {
 
+            //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Papel é CORTADO por Tesoura");
+
+            //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.papel_tesoura);
             videoJogada.setVideoURI(uri);
 
+            //Exibir video e resultado
             playVideo(videoJogada);
-
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeDerrota(txtResultado);
-            });
-
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
         }
     }
     public void cliqueBtnTesoura(View view) {
@@ -199,54 +218,51 @@ public class MainActivity extends AppCompatActivity {
         txtJogada.setText("Você escolheu: \nTesoura");
         String resultado = fazerJogada();
 
-        if (resultado.equals("Pedra")) {
+        //EMPATE
+        if (resultado.equals("Tesoura")) {
 
-            txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
-
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
-            videoJogada.setVideoURI(uri);
-
-            playVideo(videoJogada);
-
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeDerrota(txtResultado);
-            });
-
-        } else if (resultado.equals("Papel")) {
-
-            txtCombinacao.setText("Tesoura CORTA Papel");
-
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
-            videoJogada.setVideoURI(uri);
-
-            playVideo(videoJogada);
-
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeVitoria(txtResultado);
-            });
-
-        } else if (resultado.equals("Tesoura")) {
+            //Definindo texto de combinacao da jogada
             txtCombinacao.setText("Tesoura COM Tesoura");
 
+            //Definindo caminho do video de jogada a ser exibido
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_tesoura);
             videoJogada.setVideoURI(uri);
 
+            //Exibir video e resultado
             playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            videoJogada.setOnCompletionListener(mp -> {
-                videoJogada.pause();
-                txtResultado.setVisibility(View.VISIBLE);
-                txtCombinacao.setVisibility(View.VISIBLE);
-                imprimeEmpate(txtResultado);
-            });
+        //VITORIA
+        } else if (resultado.equals("Papel")) {
+
+            //Definindo texto de combinacao da jogada
+            txtCombinacao.setText("Tesoura CORTA Papel");
+
+            //Definindo caminho do video de jogada a ser exibido
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_papel);
+            videoJogada.setVideoURI(uri);
+
+            //Exibir video e resultado
+            playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
+
+        //DERROTA
+        } else if (resultado.equals("Pedra")) {
+
+            //Definindo texto de combinacao da jogada
+            txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
+
+            //Definindo caminho do video de jogada a ser exibido
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tesoura_pedra);
+            videoJogada.setVideoURI(uri);
+
+            //Exibir video e resultado
+            playVideo(videoJogada);
+            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
         }
     }
+
+    //Funcao para realizar a jogada do computador e retornar o resultado
     public String fazerJogada() {
 
         txtCombinacao.setVisibility(View.INVISIBLE);
