@@ -90,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Funcao pra limpar mp ao sair da tela (nesse caso app pq so tem ua main activity)
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        if (videoJogada!= null) {
+            videoJogada.stopPlayback();
+        }
+    }
+
     //Funcoes para modificar o txtResultado de acordo com o resultado da jogada
     void imprimeVitoria(TextView view) {
 
@@ -346,3 +357,4 @@ public class MainActivity extends AppCompatActivity {
         return resultadoSorteio;
     }
 }
+
