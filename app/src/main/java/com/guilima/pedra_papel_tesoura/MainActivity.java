@@ -1,5 +1,6 @@
 package com.guilima.pedra_papel_tesoura;
 
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
@@ -56,16 +58,24 @@ public class MainActivity extends AppCompatActivity {
 
     //Variavel de derrotas
     private int derrotas;
+    private int pontuacaoMaxima;
+    private int qtdeJogadas;
     private boolean tocouAudioStreak;
     private final int QTDE_VITORIAS_PARA_WIN_STREAK1 = 3;
     private final int QTDE_VITORIAS_PARA_WIN_STREAK2 = 6;
     private final int QTDE_VITORIAS_PARA_ZERAR = 10;
 
 
+    private int contadorCliquesReset = 0;
+    private final int QTDE_CLICKS_PARA_RESET = 3;
+
+
 
     private TextView txtResultado;
     private TextView txtCombinacao;
     private TextView txtJogada;
+    private TextView txtPontuacaoMax;
+    private TextView txtExibirRecorde;
 
     private TextView txtEmpates;
     private TextView txtVitorias;
@@ -74,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnPedra;
     private ImageView btnPapel;
     private ImageView btnTesoura;
+    ImageView btnResetPontuacaoMax;
 
     private VideoView videoJogada;
     private FrameLayout videoContainer;
@@ -86,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Looper
     Handler handler = new Handler(Looper.getMainLooper());
+    Handler handlerReset = new Handler(Looper.getMainLooper());
+    Runnable resetContador = () -> contadorCliquesReset = 0;
 
 
     //Milisegundos da duracao da musica e do fade out e fade entre faixas
@@ -108,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
         txtResultado = findViewById(R.id.txtResultado);
         txtCombinacao = findViewById(R.id.txtCombinacao);
         txtJogada = findViewById(R.id.txtJogada);
+        txtPontuacaoMax = findViewById(R.id.txtPontuacaoMax);
+        txtExibirRecorde = findViewById(R.id.txtExibirRecorde);
 
         txtEmpates = findViewById(R.id.qtdeEmpates);
         txtVitorias = findViewById(R.id.qtdeVitorias);
@@ -116,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         btnPedra = findViewById(R.id.imgPedra);
         btnPapel = findViewById(R.id.imgPapel);
         btnTesoura = findViewById(R.id.imgTesoura);
+        btnResetPontuacaoMax = findViewById(R.id.letraD);
+
         videoJogada = findViewById(R.id.videoJogada);
         videoContainer = findViewById(R.id.videoContainer);
 
@@ -130,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
         tocouAudioStreak = false;
 
         tocarLofiAleatorio();
+
+        pontuacaoMaxima = carregarPontuacaoMaxima();
+        btnResetPontuacaoMax.setOnClickListener(v -> resetarPontuacaoMaxima());
+
     }
 
     //Funcao pra limpar mp ao sair da tela (nesse caso app pq so tem ua main activity)
@@ -243,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
             winStreakSound(mpAudio);
             videoJogada.stopPlayback();
+            txtJogada.setText(getResources().getString(R.string.txt_field_explain));
 
         });
     }
@@ -279,6 +301,11 @@ public class MainActivity extends AppCompatActivity {
                 //Definindo texto de combinacao da jogada
                 txtCombinacao.setText("Pedra QUEBRA Tesoura");
                 vitorias = vitorias + 1;
+
+                if (vitorias > pontuacaoMaxima) {
+                    pontuacaoMaxima = vitorias;
+                    salvarPontuacaoMaxima(pontuacaoMaxima);
+                }
 
                 //Definindo caminho do video de jogada a ser exibido
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_tesoura);
@@ -337,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
                 txtCombinacao.setText("Papel ENGOLE Pedra");
                 vitorias = vitorias + 1;
 
+                if (vitorias > pontuacaoMaxima) {
+                    pontuacaoMaxima = vitorias;
+                    salvarPontuacaoMaxima(pontuacaoMaxima);
+                }
+
                 //Definindo caminho do video de jogada a ser exibido
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_pedra);
                 videoJogada.setVideoURI(uri);
@@ -394,6 +426,11 @@ public class MainActivity extends AppCompatActivity {
                 txtCombinacao.setText("Tesoura CORTA Papel");
                 vitorias = vitorias + 1;
 
+                if (vitorias > pontuacaoMaxima) {
+                    pontuacaoMaxima = vitorias;
+                    salvarPontuacaoMaxima(pontuacaoMaxima);
+                }
+
                 //Definindo caminho do video de jogada a ser exibido
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_papel);
                 videoJogada.setVideoURI(uri);
@@ -440,6 +477,15 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 resultadoSorteio = "Tesoura";
                 break;
+        }
+
+        qtdeJogadas = qtdeJogadas + 1;
+
+        if (qtdeJogadas == 5 && pontuacaoMaxima >= 0) {
+            txtExibirRecorde.setVisibility(View.VISIBLE);
+        }
+        else {
+            txtExibirRecorde.setVisibility(View.INVISIBLE);
         }
 
         return resultadoSorteio;
@@ -543,6 +589,61 @@ public class MainActivity extends AppCompatActivity {
             agendarTroca();
         }
     }
+
+    void salvarPontuacaoMaxima(int pontuacao) {
+        SharedPreferences prefs = getSharedPreferences("ranking", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt("pontuacao_maxima", pontuacao);
+        editor.apply(); // assíncrono e seguro
+    }
+
+    int carregarPontuacaoMaxima() {
+        SharedPreferences prefs = getSharedPreferences("ranking", MODE_PRIVATE);
+        return prefs.getInt("pontuacao_maxima", 0);
+    }
+    public void exibirPontuacaoMaxima(View view) {
+
+        txtPontuacaoMax.setText("Seu recorde de vitória: \n" + String.valueOf(pontuacaoMaxima));
+
+        if (txtPontuacaoMax.getVisibility() == View.INVISIBLE) {
+            txtPontuacaoMax.setVisibility(View.VISIBLE);
+            return;
+        }
+        else {
+            txtPontuacaoMax.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    void resetarPontuacaoMaxima() {
+
+        contadorCliquesReset++;
+
+        // reinicia a janela de tempo a cada clique
+        handlerReset.removeCallbacks(resetContador);
+        handlerReset.postDelayed(resetContador, 2000); // 2 segundos
+
+        if (contadorCliquesReset == 3) {
+
+            SharedPreferences prefs = getSharedPreferences("ranking", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("pontuacao_maxima", 0);
+            editor.apply();
+
+            pontuacaoMaxima = 0;
+            contadorCliquesReset = 0;
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Pontuação máxima redefinida",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+
+
 }
 
 
