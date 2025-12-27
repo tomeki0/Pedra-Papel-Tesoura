@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         this.txtCombinacao = txtCombinacao;
 
         videoJogada.setOnCompletionListener(mp -> {
+
             txtResultado.setVisibility(View.VISIBLE);
             txtCombinacao.setVisibility(View.VISIBLE);
 
@@ -177,158 +178,174 @@ public class MainActivity extends AppCompatActivity {
     //Funcoes para fazera jogada de acordo com o botao clicado
     public void cliqueBtnPedra(View view) {
 
-        //COLOCAR LOGICA DE SE O VIDEO ESTIVER TOCANDO OU SEJA, FOI INICIADO UMA JOGADA, SO PODE INICIAR OUTRA JOGADA DEPOIS DO VIDEO/JOGADA ATUAL PARAR
+        //Se o video estiver sendo executado e o botao for pressionado, nao faz nada
+        if (videoJogada.isPlaying() && btnPedra.isPressed()) {
+            return;
+        }
+        else if (!videoJogada.isPlaying() && btnPedra.isPressed()) {
 
-        txtJogada.setText("Você escolheu: \nPEDRA");
-        String resultado = fazerJogada();
+            txtJogada.setText("Você escolheu: \nPEDRA");
+            String resultado = fazerJogada();
 
-        //EMPATE
-        if (resultado.equals("Pedra")) {
+            //EMPATE
+            if (resultado.equals("Pedra")) {
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Pedra COM Pedra");
-            empates = empates + 1;
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Pedra COM Pedra");
+                empates = empates + 1;
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_pedra);
-            videoJogada.setVideoURI(uri);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_pedra);
+                videoJogada.setVideoURI(uri);
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-        //VITORIA
-        } else if (resultado.equals("Tesoura")) {
+            //VITORIA
+            } else if (resultado.equals("Tesoura")) {
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Pedra QUEBRA Tesoura");
-            vitorias = vitorias + 1;
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Pedra QUEBRA Tesoura");
+                vitorias = vitorias + 1;
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_tesoura);
-            videoJogada.setVideoURI(uri);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_tesoura);
+                videoJogada.setVideoURI(uri);
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
 
-        //DERROTA
-        } else if (resultado.equals("Papel")) {
+            //DERROTA
+            } else if (resultado.equals("Papel")) {
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
-            derrotas = derrotas + 1;
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Pedra é ENGOLIDA por PAPEL");
+                derrotas = derrotas + 1;
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_papel);
-            videoJogada.setVideoURI(uri);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_pedra_papel);
+                videoJogada.setVideoURI(uri);
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
-
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+            }
         }
     }
     public void cliqueBtnPapel(View view) {
 
-        txtJogada.setText("Você escolheu: \nPapel");
-        String resultado = fazerJogada();
+        if (videoJogada.isPlaying() && btnPapel.isPressed()) {
+            return;
+        }
+        else if (!videoJogada.isPlaying() && btnPapel.isPressed()) {
 
-        //EMPATE
-        if (resultado.equals("Papel")) {
+            txtJogada.setText("Você escolheu: \nPapel");
+            String resultado = fazerJogada();
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Papel COM Papel");
-            empates = empates + 1;
+            //EMPATE
+            if (resultado.equals("Papel")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_papel);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Papel COM Papel");
+                empates = empates + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_papel);
+                videoJogada.setVideoURI(uri);
 
-        //VITORIA
-        } else if (resultado.equals("Pedra")) {
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Papel ENGOLE Pedra");
-            vitorias = vitorias + 1;
+                //VITORIA
+            } else if (resultado.equals("Pedra")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_pedra);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Papel ENGOLE Pedra");
+                vitorias = vitorias + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_pedra);
+                videoJogada.setVideoURI(uri);
 
-        //DERROTA
-        } else if (resultado.equals("Tesoura")) {
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Papel é CORTADO por Tesoura");
-            derrotas = derrotas + 1;
+                //DERROTA
+            } else if (resultado.equals("Tesoura")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_tesoura);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Papel é CORTADO por Tesoura");
+                derrotas = derrotas + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_papel_tesoura);
+                videoJogada.setVideoURI(uri);
+
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+            }
         }
     }
     public void cliqueBtnTesoura(View view) {
 
-        txtJogada.setText("Você escolheu: \nTesoura");
-        String resultado = fazerJogada();
+        if (videoJogada.isPlaying() && btnTesoura.isPressed()) {
+            return;
+        }
+        else if (!videoJogada.isPlaying() && btnTesoura.isPressed()) {
 
-        //EMPATE
-        if (resultado.equals("Tesoura")) {
+            txtJogada.setText("Você escolheu: \nTesoura");
+            String resultado = fazerJogada();
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Tesoura COM Tesoura");
-            empates = empates + 1;
+            //EMPATE
+            if (resultado.equals("Tesoura")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_tesoura);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Tesoura COM Tesoura");
+                empates = empates + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_tesoura);
+                videoJogada.setVideoURI(uri);
 
-        //VITORIA
-        } else if (resultado.equals("Papel")) {
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Tesoura CORTA Papel");
-            vitorias = vitorias + 1;
+                //VITORIA
+            } else if (resultado.equals("Papel")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_papel);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Tesoura CORTA Papel");
+                vitorias = vitorias + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_papel);
+                videoJogada.setVideoURI(uri);
 
-        //DERROTA
-        } else if (resultado.equals("Pedra")) {
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
 
-            //Definindo texto de combinacao da jogada
-            txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
-            derrotas = derrotas + 1;
+                //DERROTA
+            } else if (resultado.equals("Pedra")) {
 
-            //Definindo caminho do video de jogada a ser exibido
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_pedra);
-            videoJogada.setVideoURI(uri);
+                //Definindo texto de combinacao da jogada
+                txtCombinacao.setText("Tesoura é QUEBRADA por Pedra");
+                derrotas = derrotas + 1;
 
-            //Exibir video e resultado
-            playVideo(videoJogada);
-            exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+                //Definindo caminho do video de jogada a ser exibido
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tesoura_pedra);
+                videoJogada.setVideoURI(uri);
+
+                //Exibir video e resultado
+                playVideo(videoJogada);
+                exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_DERROTA);
+            }
         }
     }
 
