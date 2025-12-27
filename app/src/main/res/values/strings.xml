@@ -3,6 +3,7 @@
 
     <string name="txt_field_explain">Escolha sua jogada\nClicando no botão correspondente</string>
     <string name="txt_field_combs">Combinacao:</string>
+    <string name="txt_mostrar_recorde">Clique no V pra exibir seu recorde</string>
 
 
     <string name="btn_txt_PEDRA">Pedra</string>
