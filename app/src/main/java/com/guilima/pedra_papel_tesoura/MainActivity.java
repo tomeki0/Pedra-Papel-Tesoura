@@ -749,7 +749,7 @@ public class MainActivity extends AppCompatActivity {
         //se o audio estiver setado, ele define o volume e dar start no audio
         if (mpLofi != null) {
 
-            mpLofi.setVolume(volumeBaseMusica, volumeBaseMusica);
+            mpLofi.setVolume(0f, 0f);
             mpLofi.start();
 
             fadeIn(); //funcao que da fade in no proxima audio

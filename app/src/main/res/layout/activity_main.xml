@@ -174,11 +174,11 @@
         android:layout_width="25dp"
         android:layout_height="44dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="50dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/letra_d"/>
+        app:srcCompat="@drawable/letra_d" />
 
     <ImageView
         android:id="@+id/letraE"
@@ -186,6 +186,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
