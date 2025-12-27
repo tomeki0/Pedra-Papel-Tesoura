@@ -174,7 +174,8 @@
         android:layout_width="25dp"
         android:layout_height="44dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="50dp"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/letra_d" />
@@ -185,6 +186,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -194,10 +196,41 @@
         android:id="@+id/letraV"
         android:layout_width="25dp"
         android:layout_height="44dp"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="50dp"
+        android:onClick="exibirPontuacaoMaxima"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/letra_v" />
+
+    <TextView
+        android:id="@+id/txtPontuacaoMax"
+        android:layout_width="265dp"
+        android:layout_height="70dp"
+        android:layout_margin="50dp"
+        android:background="@drawable/video_arredondado"
+        android:backgroundTint="#AD8CF6"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/videoContainer" />
+
+    <TextView
+        android:id="@+id/txtExibirRecorde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="91dp"
+        android:autoText="false"
+        android:text="@string/txt_mostrar_recorde"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
