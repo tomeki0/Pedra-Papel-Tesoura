@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         this.txtCombinacao = txtCombinacao;
 
         videoJogada.setOnCompletionListener(mp -> {
-            videoJogada.pause();
             txtResultado.setVisibility(View.VISIBLE);
             txtCombinacao.setVisibility(View.VISIBLE);
 
@@ -158,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
                 txtDerrotas.setText(String.valueOf(derrotas));
 
             }
+
+            videoJogada.stopPlayback();
+
         });
     }
 
