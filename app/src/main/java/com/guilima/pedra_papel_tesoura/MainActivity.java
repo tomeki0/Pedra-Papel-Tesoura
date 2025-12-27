@@ -25,13 +25,16 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
-
     //Serve para passar como parametro para a funcao de exibirResultado e assim saber qual o resultado da jogada
     private final int ID_EMPATE = 0;
     private final int ID_VITORIA = 1;
     private final int ID_DERROTA = 2;
 
 
+
+
+    //VOLUME BASE DA MUSICA
+    private float volumeBaseMusica = 1.0f;
 
     //Variavel que vai receber o codigo do audio do lofi aleatorio
     private int mp_lofi_atual_ID = 0;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private int pontuacaoMaxima;
     private int qtdeJogadas;
     private boolean tocouAudioStreak;
+    private boolean easterEggJaRodou;
+    private boolean tocandoEasterEgg;
     private final int QTDE_VITORIAS_PARA_WIN_STREAK1 = 3;
     private final int QTDE_VITORIAS_PARA_WIN_STREAK2 = 6;
     private final int QTDE_VITORIAS_PARA_ZERAR = 10;
@@ -68,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int contadorCliquesReset = 0;
     private final int QTDE_CLICKS_PARA_RESET = 3;
-
 
 
     private TextView txtResultado;
@@ -97,13 +101,15 @@ public class MainActivity extends AppCompatActivity {
 
     //Looper
     Handler handler = new Handler(Looper.getMainLooper());
+    Handler handlerLofi = new Handler(Looper.getMainLooper());
+
     Handler handlerReset = new Handler(Looper.getMainLooper());
     Runnable resetContador = () -> contadorCliquesReset = 0;
 
 
     //Milisegundos da duracao da musica e do fade out e fade entre faixas
-    final int TEMPO_TOTAL = 15000;     // 1 minuto
-    final int FADE_TEMPO = 5000;       // 4 segundos
+    final int TEMPO_TOTAL = 100000;     // 1 minuto
+    final int FADE_TEMPO = 6000;       // 4 segundos
 
     Random aleatorio = new Random();
 
@@ -145,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         derrotas = 0;
 
         tocouAudioStreak = false;
+        easterEggJaRodou = false;
+        tocandoEasterEgg = false;
+
+        qtdeJogadas = 0;
 
         tocarLofiAleatorio();
 
@@ -214,6 +224,23 @@ public class MainActivity extends AppCompatActivity {
 
         videoJogada.setOnCompletionListener(mp -> {
 
+            if (tocandoEasterEgg) {
+
+                tocandoEasterEgg = false;
+                volumeBaseMusica = 1.0f;
+
+                if (mpLofi != null) {
+                    mpLofi.setVolume(volumeBaseMusica, volumeBaseMusica);
+                }
+
+                agendarTroca(); //
+
+                videoJogada.stopPlayback();
+                txtJogada.setText(getString(R.string.txt_field_explain));
+                return;
+            }
+
+
             txtResultado.setVisibility(View.VISIBLE);
             txtCombinacao.setVisibility(View.VISIBLE);
 
@@ -245,21 +272,38 @@ public class MainActivity extends AppCompatActivity {
 
             if (vitorias == QTDE_VITORIAS_PARA_ZERAR) {
 
-                videoJogada.setVideoURI(
-                        Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.easter_egg_parabains)
-                );
-                playVideo(videoJogada);
+                if (!easterEggJaRodou) {
 
-                vitorias = 0;
+                    easterEggJaRodou = true;
+                    tocandoEasterEgg = true;
+                    volumeBaseMusica = 0f;
+
+                    // PARA QUALQUER FADE EM ANDAMENTO
+                    handlerLofi.removeCallbacksAndMessages(null);
+
+                    // APLICA O DUCKING IMEDIATAMENTE
+                    if (mpLofi != null) {
+                        mpLofi.setVolume(0f, 0f);
+                    }
+
+                    videoJogada.setVideoURI(
+                            Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.easter_egg_parabains)
+                    );
+
+                    playVideo(videoJogada);
+                    return;
+
+                }
+
+                /*vitorias = 0;
                 txtVitorias.setText(String.valueOf(vitorias));
 
                 empates = 0;
                 txtEmpates.setText(String.valueOf(empates));
 
                 derrotas = 0;
-                txtDerrotas.setText(String.valueOf(derrotas));
+                txtDerrotas.setText(String.valueOf(derrotas));*/
 
-                return;
             }
 
             winStreakSound(mpAudio);
@@ -495,13 +539,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (vitorias == QTDE_VITORIAS_PARA_WIN_STREAK1 || vitorias == QTDE_VITORIAS_PARA_WIN_STREAK2) {
 
-            if (tocouAudioStreak == false) {
+            if (!tocouAudioStreak) {
 
                 mpAudio = MediaPlayer.create(this, R.raw.audio_win_streak);
                 mpAudio.start();
                 tocouAudioStreak = true;
 
-            } else if (tocouAudioStreak == true) {
+            } else if (tocouAudioStreak) {
                 return;
             }
         } else {
@@ -513,20 +557,22 @@ public class MainActivity extends AppCompatActivity {
 
         final int interval = 100;
         final int steps = FADE_TEMPO / interval;
-        final float delta = 1f / steps;
+        final float volumeFinal = volumeBaseMusica;
+        final float delta = volumeFinal / steps;
 
         final float[] volume = {0f};
 
-        handler.post(new Runnable() {
+        handlerLofi.post(new Runnable() {
             @Override
             public void run() {
                 volume[0] += delta;
-                if (volume[0] < 1f && mpLofi != null) {
+                if (volume[0] < volumeFinal && mpLofi != null) {
                     mpLofi.setVolume(volume[0], volume[0]);
-                    handler.postDelayed(this, interval);
+                    handlerLofi.postDelayed(this, interval);
                 }
             }
         });
+
     }
 
     void fadeOutERodarProxima() {
@@ -535,15 +581,15 @@ public class MainActivity extends AppCompatActivity {
         final int steps = FADE_TEMPO / interval;
         final float delta = 1f / steps;
 
-        final float[] volume = {1f};
+        final float[] volume = {volumeBaseMusica};
 
-        handler.post(new Runnable() {
+        handlerLofi.post(new Runnable() {
             @Override
             public void run() {
                 volume[0] -= delta;
                 if (volume[0] > 0f && mpLofi != null) {
                     mpLofi.setVolume(volume[0], volume[0]);
-                    handler.postDelayed(this, interval);
+                    handlerLofi.postDelayed(this, interval);
                 } else {
                     tocarLofiAleatorio();
                 }
@@ -552,8 +598,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void agendarTroca() {
-        handler.postDelayed(() -> fadeOutERodarProxima(),
-                TEMPO_TOTAL - FADE_TEMPO);
+
+        handlerLofi.postDelayed(
+                () -> fadeOutERodarProxima(),
+                TEMPO_TOTAL - FADE_TEMPO
+        );
     }
 
     void tocarLofiAleatorio() {
@@ -583,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (mpLofi != null) {
-            mpLofi.setVolume(0f, 0f);
+            mpLofi.setVolume(volumeBaseMusica, volumeBaseMusica);
             mpLofi.start();
             fadeIn();
             agendarTroca();
@@ -641,11 +690,4 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         }
     }
-
-
-
 }
-
-
-
-
