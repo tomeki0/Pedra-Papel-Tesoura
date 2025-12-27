@@ -17,6 +17,7 @@
         android:layout_marginTop="132dp"
         android:text="@string/txt_field_explain"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +41,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/txt_field_combs"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +57,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="80dp"
         android:text="@string/btn_txt_PAPEL"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPapel" />
@@ -67,6 +70,7 @@
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="208dp"
         android:text="@string/btn_txt_TESOURA"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgTesoura" />
@@ -79,6 +83,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="224dp"
         android:text="@string/btn_txt_PEDRA"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPedra"
@@ -145,6 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="59dp"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/letraV"
         app:layout_constraintTop_toTopOf="parent" />
@@ -155,6 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="59dp"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/letraE"
         app:layout_constraintTop_toTopOf="parent" />
@@ -165,6 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="59dp"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/letraD"
         app:layout_constraintTop_toTopOf="parent" />
@@ -227,6 +235,7 @@
         android:layout_marginEnd="91dp"
         android:autoText="false"
         android:text="@string/txt_mostrar_recorde"
+        android:textColor="@color/white"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
