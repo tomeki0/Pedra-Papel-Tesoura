@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private final int ID_DERROTA = 2;
 
 
-
     //Variavel de empates
     private int empates;
 
@@ -37,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     //Variavel de derrotas
     private int derrotas;
     private boolean tocouAudioStreak;
+    private final int QTDE_VITORIAS_PARA_WIN_STREAK1 = 3;
+    private final int QTDE_VITORIAS_PARA_WIN_STREAK2 = 6;
+    private final int QTDE_VITORIAS_PARA_ZERAR = 10;
 
 
 
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onDestroy();
 
-        if (videoJogada!= null) {
+        if (videoJogada != null) {
             videoJogada.stopPlayback();
         }
     }
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         view.setTextColor(ContextCompat.getColor(this, R.color.green_victory));
 
     }
+
     void imprimeDerrota(TextView view) {
 
         String txtDerrota = getResources().getString(R.string.txt_DERROTA);
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         view.setTextColor(ContextCompat.getColor(this, R.color.red_defeat));
 
     }
+
     void imprimeEmpate(TextView view) {
 
         String txtEmpate = getResources().getString(R.string.txt_EMPATE);
@@ -173,6 +177,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            if (vitorias == QTDE_VITORIAS_PARA_ZERAR) {
+
+                videoJogada.setVideoURI(
+                        Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.easter_egg_parabains)
+                );
+                playVideo(videoJogada);
+
+                vitorias = 0;
+                txtVitorias.setText(String.valueOf(vitorias));
+
+                empates = 0;
+                txtEmpates.setText(String.valueOf(empates));
+
+                derrotas = 0;
+                txtDerrotas.setText(String.valueOf(derrotas));
+
+                return;
+            }
+
             winStreakSound(mpAudio);
             videoJogada.stopPlayback();
 
@@ -185,8 +208,7 @@ public class MainActivity extends AppCompatActivity {
         //Se o video estiver sendo executado e o botao for pressionado, nao faz nada
         if (videoJogada.isPlaying() && btnPedra.isPressed()) {
             return;
-        }
-        else if (!videoJogada.isPlaying() && btnPedra.isPressed()) {
+        } else if (!videoJogada.isPlaying() && btnPedra.isPressed()) {
 
             txtJogada.setText("Você escolheu: \nPEDRA");
             String resultado = fazerJogada();
@@ -206,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 playVideo(videoJogada);
                 exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_EMPATE);
 
-            //VITORIA
+                //VITORIA
             } else if (resultado.equals("Tesoura")) {
 
                 //Definindo texto de combinacao da jogada
@@ -221,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 playVideo(videoJogada);
                 exibirResultadoAposVideoParar(videoJogada, txtResultado, txtCombinacao, ID_VITORIA);
 
-            //DERROTA
+                //DERROTA
             } else if (resultado.equals("Papel")) {
 
                 //Definindo texto de combinacao da jogada
@@ -238,12 +260,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     public void cliqueBtnPapel(View view) {
 
         if (videoJogada.isPlaying() && btnPapel.isPressed()) {
             return;
-        }
-        else if (!videoJogada.isPlaying() && btnPapel.isPressed()) {
+        } else if (!videoJogada.isPlaying() && btnPapel.isPressed()) {
 
             txtJogada.setText("Você escolheu: \nPapel");
             String resultado = fazerJogada();
@@ -295,12 +317,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     public void cliqueBtnTesoura(View view) {
 
         if (videoJogada.isPlaying() && btnTesoura.isPressed()) {
             return;
-        }
-        else if (!videoJogada.isPlaying() && btnTesoura.isPressed()) {
+        } else if (!videoJogada.isPlaying() && btnTesoura.isPressed()) {
 
             txtJogada.setText("Você escolheu: \nTesoura");
             String resultado = fazerJogada();
@@ -380,22 +402,23 @@ public class MainActivity extends AppCompatActivity {
 
     void winStreakSound(MediaPlayer mpAudio) {
 
-       if (vitorias == 5 || vitorias == 10 || vitorias == 15) {
+        if (vitorias == QTDE_VITORIAS_PARA_WIN_STREAK1 || vitorias == QTDE_VITORIAS_PARA_WIN_STREAK2) {
 
-           if (tocouAudioStreak == false) {
+            if (tocouAudioStreak == false) {
 
-               mpAudio = MediaPlayer.create(this, R.raw.audio_win_streak);
-               mpAudio.start();
-               tocouAudioStreak = true;
+                mpAudio = MediaPlayer.create(this, R.raw.audio_win_streak);
+                mpAudio.start();
+                tocouAudioStreak = true;
 
-           } else if (tocouAudioStreak == true) {
-               return;
-           }
-       }
-       else {
-           tocouAudioStreak = false;
-       }
+            } else if (tocouAudioStreak == true) {
+                return;
+            }
+        } else {
+            tocouAudioStreak = false;
+        }
     }
 }
+
+
 
 
