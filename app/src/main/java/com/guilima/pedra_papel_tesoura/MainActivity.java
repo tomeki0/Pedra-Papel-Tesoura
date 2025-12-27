@@ -3,6 +3,8 @@ package com.guilima.pedra_papel_tesoura;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,10 +23,29 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
 
+
     //Serve para passar como parametro para a funcao de exibirResultado e assim saber qual o resultado da jogada
     private final int ID_EMPATE = 0;
     private final int ID_VITORIA = 1;
     private final int ID_DERROTA = 2;
+
+
+
+    //Variavel que vai receber o codigo do audio do lofi aleatorio
+    private int mp_lofi_atual_ID = 0;
+    private int mp_lofi_anterior_ID = 0;
+
+
+    //Somente pra nomenclatura e clareza de codigo
+    private static final int ID_LOFI_1 = 1;
+    private static final int ID_LOFI_2 = 2;
+    private static final int ID_LOFI_3 = 3;
+    private static final int ID_LOFI_4 = 4;
+    private static final int ID_LOFI_5 = 5;
+    private static final int ID_LOFI_6 = 6;
+    private static final int ID_LOFI_7 = 7;
+
+
 
 
     //Variavel de empates
@@ -56,7 +77,22 @@ public class MainActivity extends AppCompatActivity {
 
     private VideoView videoJogada;
     private FrameLayout videoContainer;
+
+    //Audio da jogada
     MediaPlayer mpAudio;
+
+    //Musia lofi loop
+    MediaPlayer mpLofi;
+
+    //Looper
+    Handler handler = new Handler(Looper.getMainLooper());
+
+
+    //Milisegundos da duracao da musica e do fade out e fade entre faixas
+    final int TEMPO_TOTAL = 15000;     // 1 minuto
+    final int FADE_TEMPO = 5000;       // 4 segundos
+
+    Random aleatorio = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         tocouAudioStreak = false;
 
+        tocarLofiAleatorio();
     }
 
     //Funcao pra limpar mp ao sair da tela (nesse caso app pq so tem ua main activity)
@@ -103,6 +140,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (videoJogada != null) {
             videoJogada.stopPlayback();
+        }
+
+        handler.removeCallbacksAndMessages(null);
+
+        if (mpLofi != null) {
+            mpLofi.stop();
+            mpLofi.release();
+            mpLofi = null;
         }
     }
 
@@ -415,6 +460,87 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             tocouAudioStreak = false;
+        }
+    }
+
+    void fadeIn() {
+
+        final int interval = 100;
+        final int steps = FADE_TEMPO / interval;
+        final float delta = 1f / steps;
+
+        final float[] volume = {0f};
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                volume[0] += delta;
+                if (volume[0] < 1f && mpLofi != null) {
+                    mpLofi.setVolume(volume[0], volume[0]);
+                    handler.postDelayed(this, interval);
+                }
+            }
+        });
+    }
+
+    void fadeOutERodarProxima() {
+
+        final int interval = 100;
+        final int steps = FADE_TEMPO / interval;
+        final float delta = 1f / steps;
+
+        final float[] volume = {1f};
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                volume[0] -= delta;
+                if (volume[0] > 0f && mpLofi != null) {
+                    mpLofi.setVolume(volume[0], volume[0]);
+                    handler.postDelayed(this, interval);
+                } else {
+                    tocarLofiAleatorio();
+                }
+            }
+        });
+    }
+
+    void agendarTroca() {
+        handler.postDelayed(() -> fadeOutERodarProxima(),
+                TEMPO_TOTAL - FADE_TEMPO);
+    }
+
+    void tocarLofiAleatorio() {
+
+        mp_lofi_anterior_ID = mp_lofi_atual_ID;
+
+        do {
+            mp_lofi_atual_ID = aleatorio.nextInt(7) + 1;
+        }
+        while (mp_lofi_atual_ID == mp_lofi_anterior_ID);
+
+
+        if (mpLofi != null) {
+            mpLofi.stop();
+            mpLofi.release();
+            mpLofi = null;
+        }
+
+        switch (mp_lofi_atual_ID) {
+            case ID_LOFI_1: mpLofi = MediaPlayer.create(this, R.raw.lofi_01); break;
+            case ID_LOFI_2: mpLofi = MediaPlayer.create(this, R.raw.lofi_02); break;
+            case ID_LOFI_3: mpLofi = MediaPlayer.create(this, R.raw.lofi_03); break;
+            case ID_LOFI_4: mpLofi = MediaPlayer.create(this, R.raw.lofi_04); break;
+            case ID_LOFI_5: mpLofi = MediaPlayer.create(this, R.raw.lofi_05); break;
+            case ID_LOFI_6: mpLofi = MediaPlayer.create(this, R.raw.lofi_06); break;
+            case ID_LOFI_7: mpLofi = MediaPlayer.create(this, R.raw.lofi_07); break;
+        }
+
+        if (mpLofi != null) {
+            mpLofi.setVolume(0f, 0f);
+            mpLofi.start();
+            fadeIn();
+            agendarTroca();
         }
     }
 }
