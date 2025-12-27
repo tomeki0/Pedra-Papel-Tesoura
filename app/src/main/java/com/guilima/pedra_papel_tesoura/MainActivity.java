@@ -293,8 +293,8 @@ public class MainActivity extends AppCompatActivity {
                 //exibe txt de empate
                 imprimeEmpate(txtResultado);
 
-                //toca audio de empate
                 mpAudio = MediaPlayer.create(this, R.raw.audio_empate);
+                mpAudio.setOnCompletionListener(MediaPlayer::release);
                 mpAudio.start();
 
                 //atualiza qtde de empates
@@ -308,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //toca audio de vitoria
                 mpAudio = MediaPlayer.create(this, R.raw.audio_vitoria);
+                mpAudio.setOnCompletionListener(MediaPlayer::release);
                 mpAudio.start();
 
                 //atualiza a qtde de vitorias
@@ -321,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //toca audio de derrota
                 mpAudio = MediaPlayer.create(this, R.raw.audio_derrota);
+                mpAudio.setOnCompletionListener(MediaPlayer::release);
                 mpAudio.start();
 
                 //atualiza qtde de derrotas
@@ -642,6 +644,7 @@ public class MainActivity extends AppCompatActivity {
             if (!tocouAudioStreak) {
 
                 mpAudio = MediaPlayer.create(this, R.raw.audio_win_streak);
+                mpAudio.setOnCompletionListener(MediaPlayer::release);
                 mpAudio.start();
                 tocouAudioStreak = true;
 
