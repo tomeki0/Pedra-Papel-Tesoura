@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Variavel de derrotas
     private int derrotas;
+    private boolean tocouAudioStreak;
 
 
 
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         empates = 0;
         vitorias = 0;
         derrotas = 0;
+
+        tocouAudioStreak = false;
 
     }
 
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            winStreakSound(mpAudio);
             videoJogada.stopPlayback();
 
         });
@@ -373,5 +377,25 @@ public class MainActivity extends AppCompatActivity {
 
         return resultadoSorteio;
     }
+
+    void winStreakSound(MediaPlayer mpAudio) {
+
+       if (vitorias == 5 || vitorias == 10 || vitorias == 15) {
+
+           if (tocouAudioStreak == false) {
+
+               mpAudio = MediaPlayer.create(this, R.raw.audio_win_streak);
+               mpAudio.start();
+               tocouAudioStreak = true;
+
+           } else if (tocouAudioStreak == true) {
+               return;
+           }
+       }
+       else {
+           tocouAudioStreak = false;
+       }
+    }
 }
+
 
