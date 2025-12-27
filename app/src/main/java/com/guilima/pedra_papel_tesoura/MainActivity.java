@@ -529,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
         switch (mp_lofi_atual_ID) {
             case ID_LOFI_1: mpLofi = MediaPlayer.create(this, R.raw.lofi_01); break;
             case ID_LOFI_2: mpLofi = MediaPlayer.create(this, R.raw.lofi_02); break;
-            case ID_LOFI_3: mpLofi = MediaPlayer.create(this, R.raw.lofi_03); break;
+            //case ID_LOFI_3: mpLofi = MediaPlayer.create(this, R.raw.lofi_03); break;
             case ID_LOFI_4: mpLofi = MediaPlayer.create(this, R.raw.lofi_04); break;
             case ID_LOFI_5: mpLofi = MediaPlayer.create(this, R.raw.lofi_05); break;
             case ID_LOFI_6: mpLofi = MediaPlayer.create(this, R.raw.lofi_06); break;
