@@ -14,7 +14,7 @@
         android:id="@+id/txtJogada"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="20dp"
         android:text="@string/txt_field_explain"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -22,7 +22,7 @@
 
         app:layout_constraintEnd_toEndOf="@id/gl_dir_botoes"
         app:layout_constraintStart_toStartOf="@id/gl_esq_botoes"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/gl_top_txt_combinacao" />
 
     <TextView
         android:id="@+id/txtResultado"
@@ -40,15 +40,16 @@
         android:id="@+id/txtCombinacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/txt_field_combs"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toEndOf="@id/gl_dir_txt_resultado"
+        app:layout_constraintStart_toStartOf="@id/gl_esq_txt_resultado"
+        app:layout_constraintBottom_toTopOf="@id/gl_top_video_jogada"
         app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
 
     <TextView
@@ -92,7 +93,7 @@
         android:id="@+id/imgPapel"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:onClick="cliqueBtnPapel"
         app:layout_constraintDimensionRatio="1:1"
 
@@ -106,7 +107,7 @@
         android:id="@+id/imgPedra"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="230dp"
+        android:layout_marginBottom="290dp"
         android:onClick="cliqueBtnPedra"
         app:layout_constraintDimensionRatio="1:1"
 
@@ -120,7 +121,7 @@
         android:id="@+id/imgTesoura"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="230dp"
+        android:layout_marginBottom="290dp"
         android:onClick="cliqueBtnTesoura"
         app:layout_constraintDimensionRatio="1:1"
 
@@ -221,7 +222,7 @@
         android:clipToOutline="true"
         android:visibility="invisible"
 
-        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintWidth_percent="0.6"
         app:layout_constraintDimensionRatio="20:15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -283,13 +284,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top_video_jogada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.26" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top_txt_combinacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
