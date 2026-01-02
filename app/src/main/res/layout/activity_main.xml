@@ -28,11 +28,11 @@
         android:id="@+id/txtResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="0dp"
         android:textSize="35sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgPedra"
+        app:layout_constraintBottom_toBottomOf="@id/gl_bottom_txt_resultado"
+        app:layout_constraintTop_toBottomOf="@id/gl_top_txt_resultado"
         app:layout_constraintEnd_toStartOf="@+id/gl_dir_txt_resultado"
         app:layout_constraintStart_toStartOf="@+id/gl_esq_txt_resultado" />
 
@@ -40,7 +40,7 @@
         android:id="@+id/txtCombinacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:text="@string/txt_field_combs"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -49,8 +49,8 @@
 
         app:layout_constraintEnd_toEndOf="@id/gl_dir_txt_resultado"
         app:layout_constraintStart_toStartOf="@id/gl_esq_txt_resultado"
-        app:layout_constraintBottom_toTopOf="@id/gl_top_video_jogada"
-        app:layout_constraintTop_toBottomOf="@+id/txtJogada" />
+        app:layout_constraintBottom_toTopOf="@id/videoContainer"
+        app:layout_constraintTop_toBottomOf="@+id/gl_top_video_jogada" />
 
     <TextView
         android:id="@+id/txtPapel"
@@ -93,42 +93,40 @@
         android:id="@+id/imgPapel"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="-20dp"
         android:onClick="cliqueBtnPapel"
         app:layout_constraintDimensionRatio="1:1"
-
         app:layout_constraintStart_toEndOf="@id/imgPedra"
         app:layout_constraintEnd_toStartOf="@id/imgTesoura"
         app:layout_constraintTop_toBottomOf="@id/gl_bottom_video_jogada"
-        app:layout_constraintBottom_toBottomOf="@id/txtResultado"
+        app:layout_constraintBottom_toTopOf="@id/gl_top_txt_resultado"
         app:srcCompat="@drawable/btn_papel" />
 
     <ImageView
         android:id="@+id/imgPedra"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="290dp"
         android:onClick="cliqueBtnPedra"
+       android:layout_marginTop="-110dp"
         app:layout_constraintDimensionRatio="1:1"
-
-        app:layout_constraintStart_toStartOf="@id/gl_esq_botoes"
         app:layout_constraintEnd_toStartOf="@id/imgPapel"
+        app:layout_constraintStart_toStartOf="@id/gl_esq_botoes"
         app:layout_constraintTop_toBottomOf="@id/gl_bottom_video_jogada"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/gl_top_txt_resultado"
         app:srcCompat="@drawable/btn_pedra" />
 
     <ImageView
         android:id="@+id/imgTesoura"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="290dp"
         android:onClick="cliqueBtnTesoura"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginTop="-110dp"
 
-        app:layout_constraintStart_toEndOf="@id/imgPapel"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/gl_dir_botoes"
+        app:layout_constraintStart_toEndOf="@id/imgPapel"
         app:layout_constraintTop_toBottomOf="@id/gl_bottom_video_jogada"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/gl_top_txt_resultado"
         app:srcCompat="@drawable/btn_tesoura" />
 
     <TextView
@@ -299,5 +297,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top_txt_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_bottom_txt_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
